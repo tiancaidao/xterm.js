@@ -24,6 +24,7 @@
           <button id="stylebutton" class="tabLinks" onclick="openSection(event, 'style')">Style</button>
           <button id="testbutton" class="tabLinks" onclick="openSection(event, 'test')">Test</button>
           <button id="vtbutton" class="tabLinks" onclick="openSection(event, 'vt')">VT</button>
+          <button id="commandsbutton" class="tabLinks" onclick="openSection(event, 'commands')">Commands</button>
         </div>
         <div id="options" class="tabContent">
           <h3>Options</h3>
@@ -167,6 +168,52 @@
         <div id="vt" class="tabContent">
           <h3>VT</h3>
           <div id="vt-container"></div>
+        </div>
+        <div id="commands" class="tabContent">
+          <h3>Quick Commands</h3>
+          <p>Click buttons to execute predefined bash commands in the terminal.</p>
+          <div id="commands-container">
+            <div class="command-section">
+              <h4>Fild system</h4>
+              <div class="command-buttons">
+                <button class="command-btn" data-command="ls">ls</button>
+                <button class="command-btn" data-command="pwd">pwd</button>
+                <button class="command-btn" data-command="cd">cd</button>
+                <button class="command-btn" data-command="cd ~/VSCodeProjects/blast_the_boss2">cd blast_the_boss2</button>
+                <button class="command-btn" data-command="cd ~/VSCodeProjects/xterm.js">cd xterm</button>
+              </div>
+            </div>
+            <div class="command-section">
+              <h4>Build & Run</h4>
+              <div class="command-buttons">
+                <button class="command-btn" data-command="flutter -d chrome run">flutter run -d chrome</button>
+                <button class="command-btn" data-command="git log --oneline -10">git log</button>
+                <button class="command-btn" data-command="git branch">git branch</button>
+                <button class="command-btn" data-command="git diff">git diff</button>
+                <button class="command-btn" data-command="git pull">git pull</button>
+              </div>
+            </div>
+            <div class="command-section">
+              <h4>Development</h4>
+              <div class="command-buttons">
+                <button class="command-btn" data-command="npm install">npm install</button>
+                <button class="command-btn" data-command="npm run build">npm run build</button>
+                <button class="command-btn" data-command="npm test">npm test</button>
+                <button class="command-btn" data-command="npm start">npm start</button>
+                <button class="command-btn" data-command="npm run lint">npm run lint</button>
+              </div>
+            </div>
+            <div class="command-section">
+              <h4>File Operations</h4>
+              <div class="command-buttons">
+                <button class="command-btn" data-command="find . -name '*.js' | head -20">find js files</button>
+                <button class="command-btn" data-command="du -sh *">disk usage</button>
+                <button class="command-btn" data-command="ps aux | grep node">node processes</button>
+                <button class="command-btn" data-command="tail -f package.json">tail package.json</button>
+                <button class="command-btn" data-command="tree -L 2">tree view</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

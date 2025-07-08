@@ -111,3 +111,58 @@ div:first-of-type.grid {
 input#opt-cols_rows {
     width: 6em;
 }
+
+/* Command buttons styling */
+#commands-container {
+    padding: 10px 0;
+}
+
+.command-section {
+    margin-bottom: 20px;
+}
+
+.command-section h4 {
+    margin: 10px 0 8px 0;
+    color: #333;
+    border-bottom: 2px solid #5DA5D5;
+    padding-bottom: 5px;
+}
+
+.command-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.command-btn {
+    background: linear-gradient(145deg, #f0f0f0, #e0e0e0);
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-family: 'Fira Code', monospace;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-width: 120px;
+    text-align: center;
+}
+
+.command-btn:hover {
+    background: linear-gradient(145deg, #5DA5D5, #4a94c4);
+    color: white;
+    border-color: #4a94c4;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.command-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.command-btn:focus {
+    outline: 2px solid #5DA5D5;
+    outline-offset: 2px;
+}

@@ -253,9 +253,12 @@ if (document.location.pathname === '/test') {
   initImageAddonExposed();
   testEvents();
   progressButtons();
+  console.log('About to call initCommandButtons, term state:', !!term);
+  initCommandButtons();
 }
 
 function createTerminal(): void {
+  console.log('createTerminal called');
   // Clean terminal
   while (terminalContainer.children.length) {
     terminalContainer.removeChild(terminalContainer.children[0]);
@@ -272,6 +275,8 @@ function createTerminal(): void {
     fontFamily: '"Fira Code", monospace, "Powerline Extra Symbols"',
     theme: xtermjsTheme
   } as ITerminalOptions);
+  
+  console.log('Terminal created:', !!term, 'core:', !!(term && term._core));
 
   // Load addons
   const typedTerm = term as Terminal;
@@ -393,18 +398,23 @@ function createTerminal(): void {
 }
 
 function runRealTerminal(): void {
+  console.log('runRealTerminal called');
   addons.attach.instance = new AttachAddon(socket);
   term.loadAddon(addons.attach.instance);
   term._initialized = true;
+  console.log('Terminal initialized (real), _onData available:', !!(term._core && term._core._onData));
   initAddons(term);
 }
 
 function runFakeTerminal(): void {
+  console.log('runFakeTerminal called');
   if (term._initialized) {
+    console.log('Terminal already initialized');
     return;
   }
 
   term._initialized = true;
+  console.log('Terminal initialized (fake), _onData available:', !!(term._core && term._core._onData));
   initAddons(term);
 
   term.prompt = () => {
@@ -1507,4 +1517,36 @@ function progressButtons(): void {
   document.getElementById('progress-2').addEventListener('click', () => term.write('\x1b]9;4;2\x1b\\'));
   document.getElementById('progress-3').addEventListener('click', () => term.write('\x1b]9;4;3\x1b\\'));
   document.getElementById('progress-4').addEventListener('click', () => term.write('\x1b]9;4;4\x1b\\'));
+}
+
+function initCommandButtons(): void {
+  console.log('initCommandButtons called');
+  const commandButtons = document.querySelectorAll('.command-btn');
+  console.log('Found command buttons:', commandButtons.length);
+  
+  commandButtons.forEach((button, index) => {
+    console.log(`Setting up button ${index}:`, button.getAttribute('data-command'));
+    button.addEventListener('click', (e) => {
+      console.log('Button clicked!', e.target);
+      const target = e.target as HTMLButtonElement;
+      const command = target.getAttribute('data-command');
+      
+      console.log('Command to execute:', command);
+      console.log('Terminal state:', {
+        term: !!term,
+        termCore: !!(term && term._core),
+        termOnData: !!(term && term._core && term._core._onData),
+        termInitialized: !!(term && term._initialized)
+      });
+      
+      if (command && term && term._core && term._core._onData) {
+        console.log('Sending command to terminal:', command + '\r');
+        // Send the command as input to the terminal (simulating user typing)
+        term._core._onData.fire(command + '\r');
+        console.log('Command sent successfully');
+      } else {
+        console.log('Failed to send command - missing requirements');
+      }
+    });
+  });
 }
