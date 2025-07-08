@@ -1530,8 +1530,12 @@ function initCommandButtons(): void {
       console.log('Button clicked!', e.target);
       const target = e.target as HTMLButtonElement;
       const command = target.getAttribute('data-command');
+      const control = target.getAttribute('data-control');
       
       console.log('Command to execute:', command);
+      console.log('Control sequence to send:', control);
+      console.log('Control sequence length:', control ? control.length : 'null');
+      console.log('Control sequence char codes:', control ? [...control].map(c => c.charCodeAt(0)) : 'null');
       console.log('Terminal state:', {
         term: !!term,
         termCore: !!(term && term._core),
@@ -1539,11 +1543,31 @@ function initCommandButtons(): void {
         termInitialized: !!(term && term._initialized)
       });
       
-      if (command && term && term._core && term._core._onData) {
-        console.log('Sending command to terminal:', command + '\r');
-        // Send the command as input to the terminal (simulating user typing)
-        term._core._onData.fire(command + '\r');
-        console.log('Command sent successfully');
+      if (term && term._core && term._core._onData) {
+        if (control) {
+          console.log('Sending control sequence to terminal:', control);
+          // Convert string representations to actual control characters
+          let controlChar = control;
+          if (control === '\\x03') {
+            controlChar = '\x03'; // Ctrl+C
+          } else if (control === '\\x1A') {
+            controlChar = '\x1A'; // Ctrl+Z
+          } else if (control === '\\x04') {
+            controlChar = '\x04'; // Ctrl+D
+          }
+          console.log('Converted control char codes:', [...controlChar].map(c => c.charCodeAt(0)));
+          
+          // Send control sequence directly (like Ctrl+C)
+          term._core._onData.fire(controlChar);
+          console.log('Control sequence sent successfully');
+        } else if (command) {
+          console.log('Sending command to terminal:', command + '\r');
+          // Send the command as input to the terminal (simulating user typing)
+          term._core._onData.fire(command + '\r');
+          console.log('Command sent successfully');
+        } else {
+          console.log('No command or control sequence found');
+        }
       } else {
         console.log('Failed to send command - missing requirements');
       }

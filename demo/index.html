@@ -186,17 +186,7 @@
             <div class="command-section">
               <h4>Build & Run</h4>
               <div class="command-buttons">
-                <button class="command-btn" data-command="flutter -d chrome run">flutter run -d chrome</button>
-                <button class="command-btn" data-command="git log --oneline -10">git log</button>
-                <button class="command-btn" data-command="git branch">git branch</button>
-                <button class="command-btn" data-command="git diff">git diff</button>
-                <button class="command-btn" data-command="git pull">git pull</button>
-              </div>
-            </div>
-            <div class="command-section">
-              <h4>Development</h4>
-              <div class="command-buttons">
-                <button class="command-btn" data-command="npm install">npm install</button>
+                <button class="command-btn" data-command="flutter -d chrome run --web-port=8080">flutter run -d chrome</button>
                 <button class="command-btn" data-command="npm run build">npm run build</button>
                 <button class="command-btn" data-command="npm test">npm test</button>
                 <button class="command-btn" data-command="npm start">npm start</button>
@@ -204,13 +194,19 @@
               </div>
             </div>
             <div class="command-section">
-              <h4>File Operations</h4>
+              <h4>Development</h4>
               <div class="command-buttons">
-                <button class="command-btn" data-command="find . -name '*.js' | head -20">find js files</button>
-                <button class="command-btn" data-command="du -sh *">disk usage</button>
-                <button class="command-btn" data-command="ps aux | grep node">node processes</button>
-                <button class="command-btn" data-command="tail -f package.json">tail package.json</button>
-                <button class="command-btn" data-command="tree -L 2">tree view</button>
+                <button class="command-btn" data-command="claude">claude</button>
+              </div>
+            </div>
+            <div class="command-section">
+              <h4>Control Commands</h4>
+              <div class="command-buttons">
+                <button class="command-btn" data-control="\x03">Ctrl+C</button>
+                <button class="command-btn" data-control="\x1A">Ctrl+Z</button>
+                <button class="command-btn" data-control="\x04">Ctrl+D</button>
+                <button class="command-btn" data-command="clear">clear</button>
+                <button class="command-btn" data-command="exit">exit</button>
               </div>
             </div>
           </div>
